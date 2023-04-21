@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_etude/screens/home_screen.dart';
 
 void main() async {
   // runApp() 실행 전 Engine 레이어 Platform Channels를 사용할 때 호출
@@ -20,36 +21,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'First Flutter Etude',
-            style: TextStyle(color: Colors.blue.shade900),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.favorite_outlined,
-                color: Colors.pink,
-              ),
-            )
-          ],
-          backgroundColor: Colors.blue.shade50,
-        ),
-        body: const Center(
-          child: Text(
-            '시작이 반이다.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 32,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-        backgroundColor: Colors.blue,
-      ),
+    return const MaterialApp(
+      home: HomeScreen(),
     );
   }
 }
