@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_etude/screens/home_screen.dart';
+import 'package:flutter_etude/extensions/color_extension.dart';
 
 void main() async {
   // runApp() 실행 전 Engine 레이어 Platform Channels를 사용할 때 호출
@@ -21,8 +22,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
+    return MaterialApp(
+      home: const HomeScreen(),
+      theme: ThemeData(
+        primaryColor: CustomColors.customPink3,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: CustomColors.customWhite,
+          foregroundColor: CustomColors.customPink3,
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: CustomColors.customWhite,
+          selectedItemColor: CustomColors.customPink3,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+        ),
+      ),
     );
   }
 }
