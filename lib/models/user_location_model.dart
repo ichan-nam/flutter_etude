@@ -3,19 +3,26 @@ import 'package:flutter_etude/models/user_location_street_model.dart';
 import 'package:flutter_etude/models/user_location_timezone_model.dart';
 
 class UserLocationModel {
-  final UserLocationStreetModel street;
-  final String city, state, country;
-  final int postcode;
-  final UserLocationCoordinatesModel coordinates;
-  final UserLocationTimezoneModel timezone;
+  final UserLocationStreetModel _street;
+  final String _city, _state, _country, _postcode;
+  final UserLocationCoordinatesModel _coordinates;
+  final UserLocationTimezoneModel _timezone;
+
+  UserLocationStreetModel get steet => _street;
+  String get city => _city;
+  String get state => _state;
+  String get country => _country;
+  String get postcode => _postcode;
+  UserLocationCoordinatesModel get coordinates => _coordinates;
+  UserLocationTimezoneModel get timezone => _timezone;
 
   UserLocationModel.fromJson(Map<String, dynamic> json)
-      : street = UserLocationStreetModel.fromJson(json['street']),
-        city = json['city'],
-        state = json['state'],
-        country = json['country'],
-        postcode = json['postcode'],
-        coordinates =
+      : _street = UserLocationStreetModel.fromJson(json['street']),
+        _city = json['city'],
+        _state = json['state'],
+        _country = json['country'],
+        _postcode = json['postcode'].toString(),
+        _coordinates =
             UserLocationCoordinatesModel.fromJson(json['coordinates']),
-        timezone = UserLocationTimezoneModel.fromJson(json['timezone']);
+        _timezone = UserLocationTimezoneModel.fromJson(json['timezone']);
 }

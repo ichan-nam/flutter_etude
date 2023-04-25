@@ -1,7 +1,10 @@
 class UserLocationCoordinatesModel {
-  final String latitude, longitude;
+  final String _latitude, _longitude;
+
+  String get latitude => _latitude;
+  String get longitude => _longitude;
 
   UserLocationCoordinatesModel.fromJson(Map<String, dynamic> json)
-      : latitude = json['latitude'],
-        longitude = json['longitude'];
+      : _latitude = json['latitude'],
+        _longitude = json['longitude'];
 }

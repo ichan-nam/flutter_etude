@@ -1,7 +1,10 @@
 class UserLocationTimezoneModel {
-  final String offset, description;
+  final String _offset, _description;
+
+  String get offset => _offset;
+  String get description => _description;
 
   UserLocationTimezoneModel.fromJson(Map<String, dynamic> json)
-      : offset = json['offset'],
-        description = json['description'];
+      : _offset = json['offset'],
+        _description = json['description'];
 }

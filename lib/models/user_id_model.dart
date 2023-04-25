@@ -1,7 +1,10 @@
 class UserIdModel {
-  final String name, value;
+  final String _name, _value;
+
+  String get name => _name;
+  String get value => _value;
 
   UserIdModel.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        value = json['value'];
+      : _name = json['name'],
+        _value = json['value'] ?? '';
 }
