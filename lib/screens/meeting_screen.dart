@@ -38,7 +38,12 @@ class MeetingScreen extends StatelessWidget {
             itemCount: snapshot.data!.length,
           );
         } else {
-          return Container();
+          return Center(
+            child: Transform.scale(
+              scale: 3,
+              child: const CircularProgressIndicator(),
+            ),
+          );
         }
       },
     );

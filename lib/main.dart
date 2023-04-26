@@ -36,6 +36,8 @@ class MyApp extends StatelessWidget {
           showSelectedLabels: false,
           showUnselectedLabels: false,
         ),
+        progressIndicatorTheme:
+            const ProgressIndicatorThemeData(color: CustomColors.customWhite),
       ),
     );
   }
