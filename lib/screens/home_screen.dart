@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_etude/screens/meeting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -12,9 +13,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static const _widgetOptions = <Widget>[
-    Text('LIST'),
-    Text('MEETING'),
+  static final _widgetOptions = <Widget>[
+    const Text('LIST'),
+    MeetingScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -29,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('가상인맥'),
       ),
-      body: Center(
-        child: _widgetOptions[_selectedIndex],
-      ),
+      body: _widgetOptions[_selectedIndex],
+      // BottomNavigationBar
+      // https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
