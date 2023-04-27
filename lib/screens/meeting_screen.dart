@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_etude/extensions/color_extension.dart';
 import 'package:flutter_etude/models/user_model.dart';
 import 'package:flutter_etude/services/api_service.dart';
 
@@ -25,15 +26,31 @@ class MeetingScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               UserModel user = snapshot.data![index];
 
-              return Image.network(
-                user.picture.large,
-                scale: 0.5,
-                width: pictureSize,
-                height: pictureSize,
+              return Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: CustomColors.customWhite,
+                          blurRadius: 16,
+                        ),
+                      ],
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    child: Image.network(
+                      user.picture.large,
+                      scale: 0.5,
+                      width: pictureSize,
+                      height: pictureSize,
+                    ),
+                  ),
+                ],
               );
             },
             separatorBuilder: (context, index) => const SizedBox(
-              width: 32,
+              width: 64,
             ),
             itemCount: snapshot.data!.length,
           );
