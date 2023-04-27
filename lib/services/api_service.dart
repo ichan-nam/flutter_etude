@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   static const _baseUrl = 'https://randomuser.me/api';
 
-  static Future<List<UserModel>> getUsersByGender(Gender gender) async {
+  static Future<List<UserModel>> getUsersByGender(GenderEnum gender) async {
     const results = 100;
     final userInstances = <UserModel>[];
 
@@ -16,7 +16,7 @@ class ApiService {
     ));
 
     final Uri url = Uri.parse(
-        '$_baseUrl/?results=$results&gender=${Gender.getStringByGender(gender)}');
+        '$_baseUrl/?results=$results&gender=${GenderEnum.getStringByGender(gender)}');
     final http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -32,18 +32,18 @@ class ApiService {
   }
 }
 
-enum Gender {
+enum GenderEnum {
   all,
   male,
   female;
 
-  static String getStringByGender(Gender gender) {
+  static String getStringByGender(GenderEnum gender) {
     switch (gender) {
-      case Gender.all:
+      case GenderEnum.all:
         return '';
-      case Gender.male:
+      case GenderEnum.male:
         return 'male';
-      case Gender.female:
+      case GenderEnum.female:
         return 'female';
     }
   }

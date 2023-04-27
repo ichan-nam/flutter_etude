@@ -7,7 +7,8 @@ import 'package:flutter_etude/utils/flag_util.dart';
 class MeetingScreen extends StatelessWidget {
   MeetingScreen({super.key});
 
-  final Future<List<UserModel>> users = ApiService.getUsersByGender(Gender.all);
+  final Future<List<UserModel>> users =
+      ApiService.getUsersByGender(GenderEnum.all);
 
   @override
   Widget build(BuildContext context) {
