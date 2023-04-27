@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_etude/extensions/color_extension.dart';
 import 'package:flutter_etude/models/user_model.dart';
 import 'package:flutter_etude/services/api_service.dart';
+import 'package:flutter_etude/utils/flag_util.dart';
 
 class MeetingScreen extends StatelessWidget {
   MeetingScreen({super.key});
@@ -27,6 +28,7 @@ class MeetingScreen extends StatelessWidget {
               UserModel user = snapshot.data![index];
 
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
                     decoration: BoxDecoration(
@@ -44,6 +46,24 @@ class MeetingScreen extends StatelessWidget {
                       scale: 0.5,
                       width: pictureSize,
                       height: pictureSize,
+                    ),
+                  ),
+                  Transform.translate(
+                    offset: const Offset(16, -64),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: CustomColors.customPink1,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          FlagUtil.getFlagByNationality(user.nat),
+                          style: const TextStyle(
+                            fontSize: 64,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
