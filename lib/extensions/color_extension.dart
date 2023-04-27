@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 // 관련 논의: https://github.com/dart-lang/language/issues/723
 extension CustomColors on Colors {
   static const customWhite = Color(0xFFF2F2F2);
-  static const customPink1 = Color(0xFFF26398);
-  static const customPink2 = Color(0xFFF26398);
+  static const customPink1 = Color(0xFFF29398);
+  static const customPink2 = Color(0xFFF24194);
   static const customPink3 = Color(0xFFF2055C);
   static const customRed = Color(0xFFF20530);
 }
