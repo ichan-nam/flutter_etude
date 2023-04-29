@@ -22,15 +22,33 @@ class MeetingScreen extends StatelessWidget {
           return ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(
-              vertical: 64,
+              vertical: 32,
               horizontal: 32,
             ),
             itemBuilder: (context, index) {
               UserModel user = snapshot.data![index];
 
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Chip(
+                    avatar: CircleAvatar(
+                      backgroundColor: CustomColors.customWhite,
+                      foregroundColor: user.gender == GenderEnum.male.toString()
+                          ? CustomColors.customDarkBlue
+                          : CustomColors.customRed,
+                      child: Icon(
+                        user.gender == GenderEnum.male.toString()
+                            ? Icons.male
+                            : Icons.female,
+                      ),
+                    ),
+                    label: Text(user.name.title),
+                    backgroundColor: user.gender == GenderEnum.male.toString()
+                        ? CustomColors.customLightBlue
+                        : CustomColors.customPink1,
+                    elevation: 4,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(32),
@@ -50,10 +68,12 @@ class MeetingScreen extends StatelessWidget {
                     ),
                   ),
                   Transform.translate(
-                    offset: const Offset(16, -64),
+                    offset: const Offset(pictureSize - 64, -64),
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: CustomColors.customPink1,
+                      decoration: BoxDecoration(
+                        color: user.gender == GenderEnum.male.toString()
+                            ? CustomColors.customLightBlue
+                            : CustomColors.customPink1,
                         shape: BoxShape.circle,
                       ),
                       child: Padding(
