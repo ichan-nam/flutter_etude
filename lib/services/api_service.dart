@@ -15,8 +15,8 @@ class ApiService {
       seconds: 3,
     ));
 
-    final Uri url = Uri.parse(
-        '$_baseUrl/?results=$results&gender=${GenderEnum.getStringByGender(gender)}');
+    final Uri url =
+        Uri.parse('$_baseUrl/?results=$results&gender=${gender.urlString}');
     final http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -37,8 +37,20 @@ enum GenderEnum {
   male,
   female;
 
-  static String getStringByGender(GenderEnum gender) {
-    switch (gender) {
+  @override
+  String toString() {
+    switch (this) {
+      case GenderEnum.all:
+        return 'all';
+      case GenderEnum.male:
+        return 'male';
+      case GenderEnum.female:
+        return 'female';
+    }
+  }
+
+  String get urlString {
+    switch (this) {
       case GenderEnum.all:
         return '';
       case GenderEnum.male:
