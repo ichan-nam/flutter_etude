@@ -10,4 +10,6 @@ extension CustomColors on Colors {
   static const customPink2 = Color(0xFFF24194);
   static const customPink3 = Color(0xFFF2055C);
   static const customRed = Color(0xFFF20530);
+  static const customLightBlue = Color(0xFF7CC8F2);
+  static const customDarkBlue = Color(0xFF0F1F8C);
 }
