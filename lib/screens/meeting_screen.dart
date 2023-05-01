@@ -6,7 +6,7 @@ import 'package:flutter_etude/widgets/simple_profile_widget.dart';
 class MeetingScreen extends StatelessWidget {
   MeetingScreen({super.key});
 
-  final Future<List<UserModel>> users =
+  final Future<List<UserModel>> _users =
       ApiService.getUsersByGender(GenderEnum.all);
 
   @override
@@ -14,7 +14,7 @@ class MeetingScreen extends StatelessWidget {
     const pictureSize = 256.0;
 
     return FutureBuilder(
-      future: users,
+      future: _users,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           // ListView는 cross axis로 가능한 최대 사이즈를 가짐
