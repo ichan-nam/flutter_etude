@@ -10,11 +10,6 @@ class ApiService {
     const results = 100;
     final userInstances = <UserModel>[];
 
-    // CircularProgressIndicator() 보려고 일부러 지연
-    await Future.delayed(const Duration(
-      seconds: 3,
-    ));
-
     final Uri url =
         Uri.parse('$_baseUrl/?results=$results&gender=${gender.urlString}');
     final http.Response response = await http.get(url);

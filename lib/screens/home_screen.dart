@@ -18,9 +18,24 @@ class _HomeScreenState extends State<HomeScreen> {
     MeetingScreen(),
   ];
 
+  late final _actionsOptions = <Widget>[
+    Container(),
+    IconButton(
+      onPressed: _onRefreshTapped,
+      icon: const Icon(Icons.refresh),
+    ),
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  void _onRefreshTapped() {
+    setState(() {
+      // 직접적으로 수정해줘야 rerendering
+      _widgetOptions[1] = MeetingScreen();
     });
   }
 
@@ -29,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('가상인맥'),
+        actions: [_actionsOptions[_selectedIndex]],
       ),
       body: _widgetOptions[_selectedIndex],
       // BottomNavigationBar
