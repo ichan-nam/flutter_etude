@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_etude/extensions/color_extension.dart';
 import 'package:flutter_etude/models/user_model.dart';
 import 'package:flutter_etude/services/api_service.dart';
-import 'package:flutter_etude/utils/flag_util.dart';
+import 'package:flutter_etude/widgets/simple_profile_widget.dart';
 
 class MeetingScreen extends StatelessWidget {
   MeetingScreen({super.key});
@@ -27,68 +26,7 @@ class MeetingScreen extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               UserModel user = snapshot.data![index];
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Chip(
-                    avatar: CircleAvatar(
-                      backgroundColor: CustomColors.customWhite,
-                      foregroundColor: user.gender == GenderEnum.male.toString()
-                          ? CustomColors.customDarkBlue
-                          : CustomColors.customRed,
-                      child: Icon(
-                        user.gender == GenderEnum.male.toString()
-                            ? Icons.male
-                            : Icons.female,
-                      ),
-                    ),
-                    label: Text(user.name.title),
-                    backgroundColor: user.gender == GenderEnum.male.toString()
-                        ? CustomColors.customLightBlue
-                        : CustomColors.customPink1,
-                    elevation: 4,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: CustomColors.customWhite,
-                          blurRadius: 16,
-                        ),
-                      ],
-                    ),
-                    clipBehavior: Clip.hardEdge,
-                    child: Image.network(
-                      user.picture.large,
-                      scale: 0.5,
-                      width: pictureSize,
-                      height: pictureSize,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: const Offset(pictureSize - 64, -64),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: user.gender == GenderEnum.male.toString()
-                            ? CustomColors.customLightBlue
-                            : CustomColors.customPink1,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          FlagUtil.getFlagByNationality(user.nat),
-                          style: const TextStyle(
-                            fontSize: 64,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
+              return SimpleProfile(user: user, pictureSize: pictureSize);
             },
             separatorBuilder: (context, index) => const SizedBox(
               width: 64,
