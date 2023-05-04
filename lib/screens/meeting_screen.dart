@@ -6,8 +6,7 @@ import 'package:flutter_etude/widgets/simple_profile_widget.dart';
 class MeetingScreen extends StatelessWidget {
   MeetingScreen({super.key});
 
-  final Future<List<UserModel>> _users =
-      ApiService.getUsersByGender(GenderEnum.all);
+  final Future<List<UserModel>> _users = ApiService.getUsersByGender();
 
   @override
   Widget build(BuildContext context) {

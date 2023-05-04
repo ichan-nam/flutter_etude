@@ -2,16 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter_etude/models/user_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   static const _baseUrl = 'https://randomuser.me/api';
 
-  static Future<List<UserModel>> getUsersByGender(GenderEnum gender) async {
+  static Future<List<UserModel>> getUsersByGender() async {
     const results = 100;
     final userInstances = <UserModel>[];
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final Uri url =
-        Uri.parse('$_baseUrl/?results=$results&gender=${gender.urlString}');
+    final Uri url = Uri.parse(
+        '$_baseUrl/?results=$results&gender=${prefs.getString('gender') ?? ''}');
     final http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {
