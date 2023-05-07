@@ -16,7 +16,8 @@ class _GenderButtonsState extends State<GenderButtons> {
   // private 클래스 안에 있어서 굳이 _로 시작할 필요 없음
   late SharedPreferences prefs;
   // build()가 initPrefs() 뒤에 실행된다고 보장할 수 없기 때문에 초기화 필수
-  String selection = GenderEnum.all.urlString;
+  // 화면 전환시 번쩍이는 현상이 없으려면 무의미한 값으로 초기화
+  String selection = 'nothing';
 
   // Rather than awaiting on asynchronous work directly inside of initState,
   // call a separate method to do this work without awaiting it.
