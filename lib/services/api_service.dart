@@ -13,7 +13,7 @@ class ApiService {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final Uri url = Uri.parse(
-        '$_baseUrl/?results=$results&gender=${prefs.getString('gender') ?? ''}');
+        '$_baseUrl/?results=$results&gender=${prefs.getString('gender') ?? GenderEnum.all.urlString}');
     final http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {
