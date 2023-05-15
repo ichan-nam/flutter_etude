@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_etude/extensions/color_extension.dart';
 import 'package:flutter_etude/models/user_model.dart';
+import 'package:flutter_etude/screens/detail_screen.dart';
 import 'package:flutter_etude/services/api_service.dart';
 import 'package:flutter_etude/utils/flag_util.dart';
 
@@ -21,16 +22,27 @@ class SimpleProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        chipsBuilder(),
-        pictureBuilder(),
-        Transform.translate(
-          offset: const Offset(0, -80),
-          child: bottomTagBuilder(),
-        ),
-      ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailScreen(user: _user),
+            fullscreenDialog: true,
+          ),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          chipsBuilder(),
+          pictureBuilder(),
+          Transform.translate(
+            offset: const Offset(0, -80),
+            child: bottomTagBuilder(),
+          ),
+        ],
+      ),
     );
   }
 
