@@ -33,7 +33,10 @@ class MeetingScreen extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     UserModel user = snapshot.data![index];
-                    return SimpleProfile(user: user, pictureSize: pictureSize);
+                    return SimpleProfile(
+                      user: user,
+                      pictureSize: pictureSize,
+                    );
                   },
                   separatorBuilder: (context, index) => const SizedBox(
                     width: 64,
