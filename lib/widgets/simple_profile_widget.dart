@@ -36,7 +36,7 @@ class SimpleProfile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           chipsBuilder(),
-          pictureBuilder(),
+          pictureBuilder(uuid: _user.login.uuid),
           Transform.translate(
             offset: const Offset(0, -80),
             child: bottomTagBuilder(),
@@ -117,23 +117,26 @@ class SimpleProfile extends StatelessWidget {
     );
   }
 
-  Container pictureBuilder() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: const [
-          BoxShadow(
-            color: CustomColors.customWhite,
-            blurRadius: 16,
-          ),
-        ],
-      ),
-      clipBehavior: Clip.hardEdge,
-      child: Image.network(
-        _user.picture.large,
-        scale: 0.5,
-        width: _pictureSize,
-        height: _pictureSize,
+  Hero pictureBuilder({required Object uuid}) {
+    return Hero(
+      tag: uuid,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(32),
+          boxShadow: const [
+            BoxShadow(
+              color: CustomColors.customWhite,
+              blurRadius: 16,
+            ),
+          ],
+        ),
+        clipBehavior: Clip.hardEdge,
+        child: Image.network(
+          _user.picture.large,
+          scale: 0.5,
+          width: _pictureSize,
+          height: _pictureSize,
+        ),
       ),
     );
   }
