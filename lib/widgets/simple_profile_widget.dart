@@ -66,7 +66,7 @@ class SimpleProfile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: CustomColors.customWhite,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
