@@ -30,11 +30,74 @@ class DetailScreen extends StatelessWidget {
                 height: 16,
               ),
               genderAgeNationalityBuilder(),
+              const SizedBox(
+                height: 32,
+              ),
+              detailInfoList(),
             ],
           ),
         ),
       ),
       backgroundColor: Theme.of(context).primaryColor,
+    );
+  }
+
+  ContentsContainer detailInfoList() {
+    final contents = <String, String>{
+      'Cell': _user.cell,
+      'Email': _user.email,
+      'Blog': 'virtualfriends.com/blog/${_user.login.username}',
+      'Birth': _user.dob.date.substring(0, 10),
+      'Postcode': _user.location.postcode,
+      'Street': '${_user.location.steet.number}, ${_user.location.steet.name}',
+      'Address': '${_user.location.city}, ${_user.location.state}',
+      'Time Zone':
+          '(${_user.location.timezone.offset}) ${_user.location.timezone.description}',
+    };
+
+    final List<Widget> widgetList =
+        contents.entries.fold([], (previousValue, element) {
+      previousValue.add(Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            element.key,
+            style: const TextStyle(color: Colors.grey),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          SelectableText(
+            element.value,
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ));
+      previousValue.add(
+        const Column(children: [
+          SizedBox(
+            height: 4,
+          ),
+          Divider(),
+          SizedBox(
+            height: 4,
+          ),
+        ]),
+      );
+      return previousValue;
+    });
+
+    widgetList.removeLast();
+
+    return ContentsContainer(
+      shadowColor: CustomColors.customPink1,
+      padding: 16,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: widgetList,
+      ),
     );
   }
 
