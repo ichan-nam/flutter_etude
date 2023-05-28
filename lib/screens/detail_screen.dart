@@ -104,7 +104,8 @@ class DetailScreen extends StatelessWidget {
               fontSize: 48,
               fontWeight: FontWeight.w600,
             ),
-          )
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );
