@@ -4,6 +4,7 @@ import 'package:flutter_etude/models/user_model.dart';
 import 'package:flutter_etude/services/api_service.dart';
 import 'package:flutter_etude/utils/flag_util.dart';
 import 'package:flutter_etude/widgets/contents_container_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({
@@ -42,11 +43,20 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
+  void _onUrlTap() async {
+    Uri url = Uri.parse(
+        'https://github.com/timo-nam/flutter_etude/blob/main/README.md');
+
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   ContentsContainer detailInfoList() {
     final contents = <String, String>{
       'Cell': _user.cell,
       'Email': _user.email,
-      'Blog': 'virtualfriends.com/blog/${_user.login.username}',
+      'Blog': 'https://virtualfriends.com/blog/${_user.login.username}',
       'Birth': _user.dob.date.substring(0, 10),
       'Postcode': _user.location.postcode,
       'Street': '${_user.location.steet.number}, ${_user.location.steet.name}',
@@ -72,6 +82,7 @@ class DetailScreen extends StatelessWidget {
             style: const TextStyle(
               fontSize: 16,
             ),
+            onTap: element.key == 'Blog' ? _onUrlTap : null,
           ),
         ],
       ));
