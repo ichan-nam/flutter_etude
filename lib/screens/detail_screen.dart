@@ -3,6 +3,7 @@ import 'package:flutter_etude/extensions/color_extension.dart';
 import 'package:flutter_etude/models/user_model.dart';
 import 'package:flutter_etude/services/api_service.dart';
 import 'package:flutter_etude/utils/flag_util.dart';
+import 'package:flutter_etude/widgets/contents_container_widget.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({
@@ -37,59 +38,46 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  Container genderAgeNationalityBuilder() {
-    return Container(
-      decoration: BoxDecoration(
-        color: CustomColors.customWhite,
-        borderRadius: BorderRadius.circular(
-          16,
-        ),
-        boxShadow: const [
-          BoxShadow(
-            color: CustomColors.customPink1,
-            offset: Offset(4, 4),
+  Widget genderAgeNationalityBuilder() {
+    return ContentsContainer(
+      shadowColor: CustomColors.customPink1,
+      padding: 8,
+      child: Row(
+        children: [
+          Expanded(
+            child: Center(
+              child: Icon(
+                size: 32,
+                _user.gender == GenderEnum.male.toString()
+                    ? Icons.male
+                    : Icons.female,
+                color: _user.gender == GenderEnum.male.toString()
+                    ? CustomColors.customDarkBlue
+                    : CustomColors.customRed,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Text(
+                '${_user.dob.age}y',
+                style: const TextStyle(
+                  fontSize: 24,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Text(
+                FlagUtil.getFlagByNationality(_user.nat),
+                style: const TextStyle(
+                  fontSize: 32,
+                ),
+              ),
+            ),
           ),
         ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          children: [
-            Expanded(
-              child: Center(
-                child: Icon(
-                  size: 32,
-                  _user.gender == GenderEnum.male.toString()
-                      ? Icons.male
-                      : Icons.female,
-                  color: _user.gender == GenderEnum.male.toString()
-                      ? CustomColors.customDarkBlue
-                      : CustomColors.customRed,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  '${_user.dob.age}y',
-                  style: const TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  FlagUtil.getFlagByNationality(_user.nat),
-                  style: const TextStyle(
-                    fontSize: 32,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

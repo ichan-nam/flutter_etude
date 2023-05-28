@@ -4,6 +4,7 @@ import 'package:flutter_etude/models/user_model.dart';
 import 'package:flutter_etude/screens/detail_screen.dart';
 import 'package:flutter_etude/services/api_service.dart';
 import 'package:flutter_etude/utils/flag_util.dart';
+import 'package:flutter_etude/widgets/contents_container_widget.dart';
 
 class SimpleProfile extends StatelessWidget {
   SimpleProfile({
@@ -62,19 +63,10 @@ class SimpleProfile extends StatelessWidget {
     );
   }
 
-  Container nameTagBuilder() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: CustomColors.customWhite,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: _genderBackgroundColor,
-            offset: const Offset(4, 4),
-          )
-        ],
-      ),
+  Widget nameTagBuilder() {
+    return ContentsContainer(
+      shadowColor: _genderBackgroundColor,
+      padding: 16,
       width: _pictureSize,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
