@@ -5,6 +5,14 @@ class UserNameModel {
   String get first => _first;
   String get last => _last;
 
+  UserNameModel({
+    required String title,
+    required String first,
+    required String last,
+  })  : _title = title,
+        _first = first,
+        _last = last;
+
   UserNameModel.fromJson(Map<String, dynamic> json)
       : _title = json['title'],
         _first = json['first'],

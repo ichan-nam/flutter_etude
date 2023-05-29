@@ -8,13 +8,29 @@ class UserLocationModel {
   final UserLocationCoordinatesModel _coordinates;
   final UserLocationTimezoneModel _timezone;
 
-  UserLocationStreetModel get steet => _street;
+  UserLocationStreetModel get street => _street;
   String get city => _city;
   String get state => _state;
   String get country => _country;
   String get postcode => _postcode;
   UserLocationCoordinatesModel get coordinates => _coordinates;
   UserLocationTimezoneModel get timezone => _timezone;
+
+  UserLocationModel({
+    required UserLocationStreetModel street,
+    required String city,
+    required String state,
+    required String country,
+    required String postcode,
+    required UserLocationCoordinatesModel coordinates,
+    required UserLocationTimezoneModel timezone,
+  })  : _street = street,
+        _city = city,
+        _state = state,
+        _country = country,
+        _postcode = postcode,
+        _coordinates = coordinates,
+        _timezone = timezone;
 
   UserLocationModel.fromJson(Map<String, dynamic> json)
       : _street = UserLocationStreetModel.fromJson(json['street']),

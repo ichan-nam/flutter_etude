@@ -59,7 +59,8 @@ class DetailScreen extends StatelessWidget {
       'Blog': 'https://virtualfriends.com/blog/${_user.login.username}',
       'Birth': _user.dob.date.substring(0, 10),
       'Postcode': _user.location.postcode,
-      'Street': '${_user.location.steet.number}, ${_user.location.steet.name}',
+      'Street':
+          '${_user.location.street.number}, ${_user.location.street.name}',
       'Address': '${_user.location.city}, ${_user.location.state}',
       'Time Zone':
           '(${_user.location.timezone.offset}) ${_user.location.timezone.description}',
