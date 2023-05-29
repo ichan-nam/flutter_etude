@@ -3,10 +3,11 @@ import 'package:flutter_etude/extensions/color_extension.dart';
 import 'package:flutter_etude/models/user_model.dart';
 import 'package:flutter_etude/screens/detail_screen.dart';
 import 'package:flutter_etude/services/api_service.dart';
+import 'package:flutter_etude/services/database_service.dart';
 import 'package:flutter_etude/utils/flag_util.dart';
 import 'package:flutter_etude/widgets/contents_container_widget.dart';
 
-class SimpleProfile extends StatelessWidget {
+class SimpleProfile extends StatefulWidget {
   SimpleProfile({
     super.key,
     required UserModel user,
@@ -22,13 +23,35 @@ class SimpleProfile extends StatelessWidget {
   final Color _genderBackgroundColor;
 
   @override
+  State<SimpleProfile> createState() => _SimpleProfileState();
+}
+
+class _SimpleProfileState extends State<SimpleProfile> {
+  final DatabaseService databaseService = DatabaseService();
+  bool isLiked = false;
+
+  void initIsLiked() async {
+    UserModel? user =
+        await databaseService.selectFavorite(widget._user.login.uuid);
+    setState(() {
+      isLiked = (user != null);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initIsLiked();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailScreen(user: _user),
+            builder: (context) => DetailScreen(user: widget._user),
             fullscreenDialog: true,
           ),
         );
@@ -37,7 +60,7 @@ class SimpleProfile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           chipsBuilder(),
-          pictureBuilder(uuid: _user.login.uuid),
+          pictureBuilder(uuid: widget._user.login.uuid),
           Transform.translate(
             offset: const Offset(0, -80),
             child: bottomTagBuilder(),
@@ -63,11 +86,23 @@ class SimpleProfile extends StatelessWidget {
     );
   }
 
+  void onHeartTap() {
+    if (isLiked) {
+      databaseService.deleteFavorite(widget._user.login.uuid);
+    } else {
+      databaseService.insertFavorite(widget._user);
+    }
+
+    setState(() {
+      isLiked = !isLiked;
+    });
+  }
+
   Widget nameTagBuilder() {
     return ContentsContainer(
-      shadowColor: _genderBackgroundColor,
+      shadowColor: widget._genderBackgroundColor,
       padding: 16,
-      width: _pictureSize,
+      width: widget._pictureSize,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -75,7 +110,7 @@ class SimpleProfile extends StatelessWidget {
           // Overflow라는 게 존재하려면, over 할 기준이 되는 사이즈가 필요함
           Expanded(
             child: Text(
-              _user.name.last,
+              widget._user.name.last,
               style: const TextStyle(
                 fontSize: 24,
               ),
@@ -83,8 +118,11 @@ class SimpleProfile extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_border),
+            onPressed: onHeartTap,
+            icon: Icon(
+              Icons.favorite,
+              color: isLiked ? CustomColors.customPink3 : Colors.grey,
+            ),
           ),
         ],
       ),
@@ -94,13 +132,13 @@ class SimpleProfile extends StatelessWidget {
   Container flagBadgeBuilder() {
     return Container(
       decoration: BoxDecoration(
-        color: _genderBackgroundColor,
+        color: widget._genderBackgroundColor,
         shape: BoxShape.circle,
       ),
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Text(
-          FlagUtil.getFlagByNationality(_user.nat),
+          FlagUtil.getFlagByNationality(widget._user.nat),
           style: const TextStyle(
             fontSize: 64,
           ),
@@ -124,10 +162,10 @@ class SimpleProfile extends StatelessWidget {
         ),
         clipBehavior: Clip.hardEdge,
         child: Image.network(
-          _user.picture.large,
+          widget._user.picture.large,
           scale: 0.5,
-          width: _pictureSize,
-          height: _pictureSize,
+          width: widget._pictureSize,
+          height: widget._pictureSize,
         ),
       ),
     );
@@ -140,22 +178,22 @@ class SimpleProfile extends StatelessWidget {
         Chip(
           avatar: CircleAvatar(
             backgroundColor: CustomColors.customWhite,
-            foregroundColor: _user.gender == GenderEnum.male.toString()
+            foregroundColor: widget._user.gender == GenderEnum.male.toString()
                 ? CustomColors.customDarkBlue
                 : CustomColors.customRed,
             child: Icon(
-              _user.gender == GenderEnum.male.toString()
+              widget._user.gender == GenderEnum.male.toString()
                   ? Icons.male
                   : Icons.female,
             ),
           ),
-          label: Text(_user.name.title),
-          backgroundColor: _genderBackgroundColor,
+          label: Text(widget._user.name.title),
+          backgroundColor: widget._genderBackgroundColor,
           elevation: 4,
         ),
         Chip(
-          label: Text('${_user.dob.age}'),
-          backgroundColor: _genderBackgroundColor,
+          label: Text('${widget._user.dob.age}'),
+          backgroundColor: widget._genderBackgroundColor,
           elevation: 4,
         ),
       ],
