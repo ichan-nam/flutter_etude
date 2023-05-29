@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_etude/screens/favorites_screen.dart';
 import 'package:flutter_etude/screens/meeting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static final _widgetOptions = <Widget>[
-    const Text('LIST'),
+    FavoritesScreen(),
     MeetingScreen(),
   ];
 
