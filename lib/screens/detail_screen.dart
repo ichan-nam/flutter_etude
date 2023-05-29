@@ -46,7 +46,8 @@ class _DetailScreenState extends State<DetailScreen> {
           IconButton(
             onPressed: onHeartTap,
             icon: Icon(
-              isLiked ? Icons.favorite : Icons.favorite_border,
+              Icons.favorite,
+              color: isLiked ? CustomColors.customPink3 : Colors.grey,
             ),
           ),
         ],
