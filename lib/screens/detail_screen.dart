@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_etude/extensions/color_extension.dart';
 import 'package:flutter_etude/models/user_model.dart';
 import 'package:flutter_etude/services/api_service.dart';
+import 'package:flutter_etude/services/database_service.dart';
 import 'package:flutter_etude/utils/flag_util.dart';
 import 'package:flutter_etude/widgets/contents_container_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   const DetailScreen({
     super.key,
     required UserModel user,
@@ -15,10 +16,40 @@ class DetailScreen extends StatelessWidget {
   final UserModel _user;
 
   @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  final DatabaseService databaseService = DatabaseService();
+  bool isLiked = false;
+
+  void initIsLiked() async {
+    UserModel? user =
+        await databaseService.selectFavorite(widget._user.login.uuid);
+    setState(() {
+      isLiked = (user != null);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initIsLiked();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_user.name.last),
+        title: Text(widget._user.name.last),
+        actions: [
+          IconButton(
+            onPressed: onHeartTap,
+            icon: Icon(
+              isLiked ? Icons.favorite : Icons.favorite_border,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -43,7 +74,19 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  void _onUrlTap() async {
+  void onHeartTap() {
+    if (isLiked) {
+      databaseService.deleteFavorite(widget._user.login.uuid);
+    } else {
+      databaseService.insertFavorite(widget._user);
+    }
+
+    setState(() {
+      isLiked = !isLiked;
+    });
+  }
+
+  void onUrlTap() async {
     Uri url = Uri.parse(
         'https://github.com/timo-nam/flutter_etude/blob/main/README.md');
 
@@ -54,16 +97,17 @@ class DetailScreen extends StatelessWidget {
 
   ContentsContainer detailInfoList() {
     final contents = <String, String>{
-      'Cell': _user.cell,
-      'Email': _user.email,
-      'Blog': 'https://virtualfriends.com/blog/${_user.login.username}',
-      'Birth': _user.dob.date.substring(0, 10),
-      'Postcode': _user.location.postcode,
+      'Cell': widget._user.cell,
+      'Email': widget._user.email,
+      'Blog': 'https://virtualfriends.com/blog/${widget._user.login.username}',
+      'Birth': widget._user.dob.date.substring(0, 10),
+      'Postcode': widget._user.location.postcode,
       'Street':
-          '${_user.location.street.number}, ${_user.location.street.name}',
-      'Address': '${_user.location.city}, ${_user.location.state}',
+          '${widget._user.location.street.number}, ${widget._user.location.street.name}',
+      'Address':
+          '${widget._user.location.city}, ${widget._user.location.state}',
       'Time Zone':
-          '(${_user.location.timezone.offset}) ${_user.location.timezone.description}',
+          '(${widget._user.location.timezone.offset}) ${widget._user.location.timezone.description}',
     };
 
     final List<Widget> widgetList =
@@ -83,7 +127,7 @@ class DetailScreen extends StatelessWidget {
             style: const TextStyle(
               fontSize: 16,
             ),
-            onTap: element.key == 'Blog' ? _onUrlTap : null,
+            onTap: element.key == 'Blog' ? onUrlTap : null,
           ),
         ],
       ));
@@ -123,10 +167,10 @@ class DetailScreen extends StatelessWidget {
             child: Center(
               child: Icon(
                 size: 32,
-                _user.gender == GenderEnum.male.toString()
+                widget._user.gender == GenderEnum.male.toString()
                     ? Icons.male
                     : Icons.female,
-                color: _user.gender == GenderEnum.male.toString()
+                color: widget._user.gender == GenderEnum.male.toString()
                     ? CustomColors.customDarkBlue
                     : CustomColors.customRed,
               ),
@@ -135,7 +179,7 @@ class DetailScreen extends StatelessWidget {
           Expanded(
             child: Center(
               child: Text(
-                '${_user.dob.age}y',
+                '${widget._user.dob.age}y',
                 style: const TextStyle(
                   fontSize: 24,
                 ),
@@ -145,7 +189,7 @@ class DetailScreen extends StatelessWidget {
           Expanded(
             child: Center(
               child: Text(
-                FlagUtil.getFlagByNationality(_user.nat),
+                FlagUtil.getFlagByNationality(widget._user.nat),
                 style: const TextStyle(
                   fontSize: 32,
                 ),
@@ -165,7 +209,7 @@ class DetailScreen extends StatelessWidget {
           Transform.translate(
             offset: const Offset(2, 8),
             child: Text(
-              _user.name.first,
+              widget._user.name.first,
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w500,
@@ -173,7 +217,7 @@ class DetailScreen extends StatelessWidget {
             ),
           ),
           Text(
-            _user.name.last,
+            widget._user.name.last,
             style: const TextStyle(
               color: CustomColors.customWhite,
               fontSize: 48,
@@ -188,10 +232,10 @@ class DetailScreen extends StatelessWidget {
 
   Hero pictureBuilder() {
     return Hero(
-      tag: _user.login.uuid,
+      tag: widget._user.login.uuid,
       child: CircleAvatar(
         backgroundColor: CustomColors.customPink1,
-        backgroundImage: NetworkImage(_user.picture.large),
+        backgroundImage: NetworkImage(widget._user.picture.large),
         maxRadius: 128,
       ),
     );
