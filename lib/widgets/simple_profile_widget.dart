@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_etude/extensions/color_extension.dart';
 import 'package:flutter_etude/models/user_model.dart';
+import 'package:flutter_etude/providers/favorites_provider.dart';
 import 'package:flutter_etude/screens/detail_screen.dart';
 import 'package:flutter_etude/services/api_service.dart';
 import 'package:flutter_etude/services/database_service.dart';
 import 'package:flutter_etude/utils/flag_util.dart';
 import 'package:flutter_etude/widgets/contents_container_widget.dart';
+import 'package:provider/provider.dart';
 
 class SimpleProfile extends StatefulWidget {
   SimpleProfile({
@@ -46,6 +48,11 @@ class _SimpleProfileState extends State<SimpleProfile> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      isLiked =
+          context.watch<FavoritesProvider>().isExist(widget._user.login.uuid);
+    });
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -88,9 +95,13 @@ class _SimpleProfileState extends State<SimpleProfile> {
 
   void onHeartTap() {
     if (isLiked) {
-      databaseService.deleteFavorite(widget._user.login.uuid);
+      final String uuid = widget._user.login.uuid;
+      databaseService.deleteFavorite(uuid);
+      context.read<FavoritesProvider>().remove(uuid);
     } else {
-      databaseService.insertFavorite(widget._user);
+      final UserModel user = widget._user;
+      databaseService.insertFavorite(user);
+      context.read<FavoritesProvider>().add(user);
     }
 
     setState(() {

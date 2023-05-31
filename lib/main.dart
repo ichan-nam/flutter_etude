@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_etude/providers/favorites_provider.dart';
 import 'package:flutter_etude/screens/home_screen.dart';
 import 'package:flutter_etude/extensions/color_extension.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   // 안드로이드에서 HTTPS 통신 시 CERTIFICATE_VERIFY_FAILED 에러를 피하기 위한 코드
@@ -20,7 +22,12 @@ void main() async {
   // Platform Channels를 사용하는 메소드는 다 비동기
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => FavoritesProvider()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_etude/extensions/color_extension.dart';
 import 'package:flutter_etude/models/user_model.dart';
+import 'package:flutter_etude/providers/favorites_provider.dart';
 import 'package:flutter_etude/services/api_service.dart';
 import 'package:flutter_etude/services/database_service.dart';
 import 'package:flutter_etude/utils/flag_util.dart';
 import 'package:flutter_etude/widgets/contents_container_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -44,7 +46,7 @@ class _DetailScreenState extends State<DetailScreen> {
         title: Text(widget._user.name.last),
         actions: [
           IconButton(
-            onPressed: onHeartTap,
+            onPressed: () => onHeartTap(context),
             icon: Icon(
               Icons.favorite,
               color: isLiked ? CustomColors.customPink3 : Colors.grey,
@@ -75,11 +77,15 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  void onHeartTap() {
+  void onHeartTap(BuildContext context) {
     if (isLiked) {
-      databaseService.deleteFavorite(widget._user.login.uuid);
+      final String uuid = widget._user.login.uuid;
+      databaseService.deleteFavorite(uuid);
+      context.read<FavoritesProvider>().remove(uuid);
     } else {
-      databaseService.insertFavorite(widget._user);
+      final UserModel user = widget._user;
+      databaseService.insertFavorite(user);
+      context.read<FavoritesProvider>().add(user);
     }
 
     setState(() {

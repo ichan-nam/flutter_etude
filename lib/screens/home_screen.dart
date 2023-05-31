@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static final _widgetOptions = <Widget>[
-    FavoritesScreen(),
+    const FavoritesScreen(),
     MeetingScreen(),
   ];
 

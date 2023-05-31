@@ -91,13 +91,14 @@ class DatabaseService {
     }
   }
 
-  Future<List<UserModel>> selectFavorites() async {
+  Future<Map<String, UserModel>> selectFavorites() async {
     final Database db = await database;
     final List<Map<String, dynamic>> data = await db.query(tableName);
 
-    return List.generate(data.length, (index) {
-      Map<String, dynamic> record = data[index];
-      return UserModel(
+    final returnValue = <String, UserModel>{};
+    for (int i = 0; i < data.length; i++) {
+      Map<String, dynamic> record = data[i];
+      returnValue[record['login_uuid']] = UserModel(
         gender: record['gender'],
         email: record['email'],
         phone: record['phone'],
@@ -153,7 +154,9 @@ class DatabaseService {
           thumbnail: record['picture_thumbnail'],
         ),
       );
-    });
+    }
+
+    return returnValue;
   }
 
   Future<UserModel?> selectFavorite(String uuid) async {
