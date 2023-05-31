@@ -28,7 +28,7 @@ class MeetingScreen extends StatelessWidget {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(
-                    vertical: 32,
+                    vertical: 24,
                     horizontal: 32,
                   ),
                   itemBuilder: (context, index) {
