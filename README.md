@@ -20,12 +20,57 @@
 무작정 Dart 강의 하나, Flutter 기초 강의 하나를 듣고 복습용으로 이 프로젝트를 만들었습니다.
 동시에 **Flutter로 현재 iOS와 안드로이드 버전을 따로 관리 중인 SBS 사내 모바일 앱을 크로스플랫폼으로 전환할 수 있을지, 개인적인 토이프로젝트를 만들어 배포하는 데 부족함이 없는 수준인지를 검증**해 보고자 이런저런 실험을 해봤습니다.
 
-짧은 식견이지만 쓸만한 앱이 되려면 적어도 아래 기능 정도는 원활하게 돌아가야 한다고 생각합니다. 따라서 해당 기능을 지원하는 안정적인 라이브러리가 있는지를 찾아보고 직접 사용해봤습니다.
+짧은 식견이지만 쓸만한 앱이 되려면 적어도 아래 기능 정도는 원활하게 돌아가야 한다고 생각합니다.
+따라서 해당 기능을 지원하는 안정적인 라이브러리가 있는지를 찾아보고 직접 사용해봤습니다.
 | No. | 기능 | 패키지 | 버전 |
-| :---: | --- | --- | --- |
+| :--: | -- | -- | -- |
 | 1 | HTTP 통신 | [http](https://pub.dev/packages/http) | ^0.13.5 |
 | 2 | JSON Serialization/Deserialization | [dart:convert](https://api.dart.dev/stable/3.0.2/dart-convert/dart-convert-library.html) | Dart SDK 3.0.0 |
 | 3 | 상태 관리 | [provider](https://pub.dev/packages/provider) | ^6.0.5 |
 | 4 | Local Storage (Key-Value) | [shared_preferences](https://pub.dev/packages/shared_preferences) | ^2.1.0 |
 | 5 | Local Storage (DB) | [sqflite](https://pub.dev/packages/sqflite) | ^2.2.8+4 |
 | 6 | 웹브라우저 호출 | [url_launcher](https://pub.dev/packages/url_launcher) | ^6.1.11 |
+
+결과적으로 저는 Flutter로 프로덕션 수준의 앱을 만드는 데 무리가 없다고 판단했습니다.
+물론 **네이티브앱에 비해 구현할 수 있는 기능의 제약은 있겠지만, 사내 모바일 앱을 만들거나 아이디어를 바탕으로 서비스를 시작하는 단계에선 충분하다**고 생각합니다.
+다음에는 실제로 플레이스토어와 앱스토어에 배포할 Flutter 앱을 개발해 보려고 합니다.
+
+## Install
+```Bash
+$ git clone git@github.com:timo-nam/flutter_etude.git
+```
+
+## Usage
+
+저는 **VS Code**에 `Dart`, `Flutter` Extension을 설치해 개발하고 주로 내장 디버깅 툴을 통해 앱을 실행해 봅니다.
+물론 CLI 환경에서 다음과 같은 명령어로 앱을 실행시킬 수도 있습니다.
+```Bash
+$ flutter run
+```
+
+앱이 정상적으로 작동하는 걸 확인한 플랫폼은 아래 2가지입니다.
+- iOS
+- AOS
+
+## Demo
+
+### Screenshots
+
+- iOS
+  <div>
+    <img src="https://drive.google.com/file/d/1ENAZ9xVxm-7NsO2RqtOkX6OsdDmSYOLB/view?usp=sharing" width="200" />
+    <img src="https://drive.google.com/file/d/1mHRpuFZ061lYzGf_aR0Cx1VcDmv_BJ09/view?usp=sharing" width="200" />
+    <img src="https://drive.google.com/file/d/1cUcxfkQJTJIYoOP0TrN-Ew28lOVvaarc/view?usp=sharing" width="200" />
+  </div>
+
+- AOS
+  <div>
+    <img src="https://drive.google.com/file/d/1b6PdnqnS__MhipKf0epHsy0kD6Y6UCQK/view?usp=sharing" width="200" />
+    <img src="https://drive.google.com/file/d/1mHRpuFZ061lYzGf_aR0Cx1VcDmv_BJ09/view?usp=sharing" width="200" />
+    <img src="https://drive.google.com/file/d/1VYIuGmCnBvnlLWYjXHLzcOKRR0eOXIek/view?usp=sharing" width="200" />
+  </div>
+
+### Videos
+
+- iOS: https://drive.google.com/file/d/1rwu5QGzM7dcKue50UINxVCpHctY3euf3/view?usp=sharing
+- AOS: https://drive.google.com/file/d/1CepoXZ3UZj5VNAINjHtb_kTwh7DRmnaQ/view?usp=sharing
