@@ -58,19 +58,24 @@ $ flutter run
 
 - iOS
   <div>
-    <img src="https://drive.google.com/file/d/1ENAZ9xVxm-7NsO2RqtOkX6OsdDmSYOLB/view?usp=sharing" width="200" />
-    <img src="https://drive.google.com/file/d/1mHRpuFZ061lYzGf_aR0Cx1VcDmv_BJ09/view?usp=sharing" width="200" />
-    <img src="https://drive.google.com/file/d/1cUcxfkQJTJIYoOP0TrN-Ew28lOVvaarc/view?usp=sharing" width="200" />
+    <img src="https://github.com/timo-nam/flutter_etude/assets/76807762/bc6701cb-3491-4cbe-8f66-69d62093610b" width="200" />
+    <img src="https://github.com/timo-nam/flutter_etude/assets/76807762/5531dab5-6efc-4490-a454-d8b9c7c794f4" width="200" />
+    <img src="https://github.com/timo-nam/flutter_etude/assets/76807762/0495f82b-5647-4f8e-a8a3-173eef70f800" width="200" />
   </div>
 
 - AOS
   <div>
-    <img src="https://drive.google.com/file/d/1b6PdnqnS__MhipKf0epHsy0kD6Y6UCQK/view?usp=sharing" width="200" />
-    <img src="https://drive.google.com/file/d/1mHRpuFZ061lYzGf_aR0Cx1VcDmv_BJ09/view?usp=sharing" width="200" />
-    <img src="https://drive.google.com/file/d/1VYIuGmCnBvnlLWYjXHLzcOKRR0eOXIek/view?usp=sharing" width="200" />
+    <img src="https://github.com/timo-nam/flutter_etude/assets/76807762/8ec671b6-a8bf-4da9-b98d-89668826dfb0" width="200" />
+    <img src="https://github.com/timo-nam/flutter_etude/assets/76807762/15d53e2c-f401-4e79-96b5-8ce876ff5edd" width="200" />
+    <img src="https://github.com/timo-nam/flutter_etude/assets/76807762/7258ec4e-0009-410d-a198-6224bd0df3df" width="200" />
   </div>
 
 ### Videos
 
 - iOS: https://drive.google.com/file/d/1rwu5QGzM7dcKue50UINxVCpHctY3euf3/view?usp=sharing
 - AOS: https://drive.google.com/file/d/1CepoXZ3UZj5VNAINjHtb_kTwh7DRmnaQ/view?usp=sharing
+
+## API
+
+Random User Generator [Documentation](https://randomuser.me/documentation)
+
